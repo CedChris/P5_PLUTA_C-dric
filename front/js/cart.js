@@ -1,7 +1,9 @@
+// Récupération du contenu du local storage
 let dataLocalStorage = JSON.parse(localStorage.getItem("produits"));
 let containerPanier = document.querySelector("#cart__items")
 
 
+// Ajout dans le DOM de(s) produit(s) stocké(s) dans le localstorage
 function addDomCart() {
 
 for (i = 0; i < dataLocalStorage.length; i++){
@@ -69,49 +71,127 @@ for (i = 0; i < dataLocalStorage.length; i++){
         
         cartItemContentSettingsDeleteBtn.innerHTML = "Supprimer"
 }
-        
-    // let cartItemContent = document.createElement("div");
-    //     cartItemContent.classList.add("cart__item__content");
-    //     containerCart.appendChild(cartItemContent);
     }
     addDomCart ();
 
-    function deleteCart (){
+// Fonction de suppression d'un article
+
+function deleteCart (){
 
     let deleteItem = document.querySelectorAll(".deleteItem")
     for (let d = 0; d < deleteItem.length; d++){
         deleteItem[d].addEventListener('click' ,(event) =>{
             event.preventDefault();
             console.log(event)
-             let
-    })
-    console.log(deleteCart)
-}}
+             let idDeleteItem = dataLocalStorage[d]._id;
+             console.log(idDeleteItem)
+
+             dataLocalStorage = dataLocalStorage.filter( (element) => element._id !== idDeleteItem)
+             localStorage.setItem("produits", JSON.stringify(dataLocalStorage))
+             
+             location.reload();
+
+             alert ("Le produit a été supprimé de votre panier")
+             
+    });
+    
+}};
 deleteCart ();
 
-// function totalPrix(){
+// Calcul du prix total en fonction de(s) quantité(s)
+function getTotals(){
 
-//     let totalContainer = document.querySelector(".cart__price")
-//     let totalArticle = document.querySelector("#totalQuantity")
-//     let totalPrice = document.querySelector("#totalPrice")
+    // Récupération du total des quantités
+    var elemsQtt = document.getElementsByClassName('itemQuantity');
+    var myLength = elemsQtt.length,
+    totalQtt = 0;
 
-//     let totalPriceCalcul = [];
+    for (var i = 0; i < myLength; ++i) {
+        totalQtt += elemsQtt[i].valueAsNumber;
+    }
 
-//     for(p = 0 ; p < dataLocalStorage[p].price; p++){
-//         let priceCalcul = dataLocalStorage[p].price;
-//         totalPriceCalcul.push(priceCalcul);
-        
-//     }
+    let productTotalQuantity = document.getElementById('totalQuantity');
+    productTotalQuantity.innerHTML = totalQtt;
+    console.log(totalQtt);
+
+    totalPrice = 0;
+
+    for (var i = 0; i < myLength; ++i) {
+        totalPrice += (elemsQtt[i].valueAsNumber * dataLocalStorage[i].price);
+    }
+
+    let productTotalPrice = document.getElementById('totalPrice');
+    productTotalPrice.innerHTML = totalPrice;
+    console.log(totalPrice);
+}
+getTotals();
+
+// 
+function modifyQtt() {
+    let qttModif = document.querySelectorAll(".itemQuantity");
+
+    for (let k = 0; k < qttModif.length; k++){
+        qttModif[k].addEventListener("change" , (event) => {
+            event.preventDefault();
+
+            let quantityModif = dataLocalStorage[k].quantity;
+            let qttModifValue = qttModif[k].valueAsNumber;
+            
+            const resultFind = dataLocalStorage.find((el) => el.qttModifValue !== quantityModif);
+
+            resultFind.quantity = qttModifValue;
+            dataLocalStorage[k].quantity = resultFind.quantity;
+
+            localStorage.setItem("produits", JSON.stringify(dataLocalStorage));
     
-//     // totalArticle.innerHTML = dataLocalStorage[i].quantity;
-//     // totalPrice.innerHTML = dataLocalStorage[0].price;
-// }
-// }
+            location.reload();
+            
+        })
+        console.log(dataLocalStorage)
+    }
+}
+modifyQtt();
 
 
+function form(){
 
+        let firstName = document.querySelector("#firstName");
+        let lastName = document.querySelector("#firstName");
+        let adress = document.querySelector("#firstName");
+        let city = document.querySelector("#firstName");
+        let email = document.querySelector("#firstName");
+        const submit = document.querySelector("#order");
+    console.log(firstName)
+        firstName.addEventListener('change', (event) => {
+            event.preventDefault();
+            if(firstName.value == null){
+    
+            let errorFirstName = document.querySelector("#firstNameErrorMsg")
+            errorFirstName.innerText = (`Veuillez ajouter votre nom s'il vous plait`)
+    }
+            if(lastName.value == null){
+    
+            let errorLastName = document.querySelector("#lastNameErrorMsg")
+            errorLastName.innerHTML = (`Veuillez ajouter votre prénom s'il vous plait`)
+    }
+            if(adress.value == null){
+    
+            let errorAdress = document.querySelector("#adressErrorMsg")
+            errorAdress.innerHTML = (`Veuillez ajouter votre adresse s'il vous plait`)
+    }   
+            if(city.value == null){
+    
+            let errorFirstName = document.querySelector("#cityErrorMsg")
+            errorFirstName.innerHTML = (`Veuillez ajouter votre ville s'il vous plait`)
+    }
+            if(email.value == null){
+    
+            let errorFirstName = document.querySelector("#emailErrorMsg")
+            errorFirstName.innerHTML = (`Veuillez ajouter votre email s'il vous plait`)
+    }
+        })};
 
-
+form();
 function postForm(){
     const btn_commander = document.getElementById("order");
 
@@ -166,148 +246,3 @@ function postForm(){
         })
 }
 postForm();
-// totalPrix ();
-
-// function form (){
-
-//     let fName = document.querySelector("#firstName");
-//     let lName = document.querySelector("#lastName");
-//     let adresse = document.querySelector("#address");
-//     let ville = document.querySelector("#city");
-//     let email = document.querySelector("#email");
-//     const submit = document.querySelector("#order");
-// let produitId = [];
-// produitId.push(dataLocalStorage[0]._id)
-//     console.log(dataLocalStorage)
-    
-//     console.log(produitId)
-//     submit.addEventListener('click', () =>{
-        
-        
-    
-//         let submitData = {
-        
-//         contact: {
-//             firstName : fName.value,
-//             lastName : lName.value,
-//             address : adresse.value,
-//             city : ville.value,
-//             email : email.value,
-//         },
-//         products: produitId,
-//     }
-//     console.log(submitData)
-    
-//     const order = {
-//         method: 'POST',
-//         body: JSON.stringify(submitData),
-//         headers: {
-//         'Accept': 'application/json', 
-//         "Content-Type" : "application/json",
-//         },
-//     }
-// console.log(order)
-// const post =  fetch ("http://localhost:3000/api/products/order", order)
-//     .then(res =>  res.json())
-//     .then((data) =>{
-//         localStorage.setItem("orderId", data)
-//         console.log(data)
-//         // document.location.href = "confirmation.html";
-//     }
-//     )
-//     .catch((err) => {
-//         alert ("Erreur");
-//     })
-// console.log(post)
-// }
-// ,)}
-// // submit.addEventListener('click', () => {
-
-// // //     const post = fetch ("http://localhost:3000/api/products/order", orderAll)
-// // //     .then(res => res.json())
-// // //     .then((data) =>{
-// // //         localStorage.setItem("orderId", data.values)
-// // //         console.log(data)
-// // //         document.location.href = "confirmation.html";
-// // //     }
-// // //     )
-// // //     .catch((err) => {
-// // //         alert ("Erreur");
-// // //     })
-
-// // // })
- 
-
-// // }
-// form();
-
-// function form(){
-
-//     let firstName = document.querySelector("#firstName");
-//     let lastName = document.querySelector("#firstName");
-//     let adress = document.querySelector("#firstName");
-//     let city = document.querySelector("#firstName");
-//     let email = document.querySelector("#firstName");
-//     const submit = document.querySelector("#order");
-
-//     submit.addEventListener('click', () => {
-        
-//         if(firstName.value == null){
-
-//         let errorFirstName = document.querySelector("#firstNameErrorMsg")
-//         errorFirstName.innerHTML = (`Veuillez ajouter votre nom s'il vous plait`)
-// }
-//         if(lastName.value == null){
-
-//         let errorLastName = document.querySelector("#lastNameErrorMsg")
-//         errorLastName.innerHTML = (`Veuillez ajouter votre prénom s'il vous plait`)
-// }
-//         if(adress.value == null){
-
-//         let errorAdress = document.querySelector("#adressErrorMsg")
-//         errorAdress.innerHTML = (`Veuillez ajouter votre adresse s'il vous plait`)
-// }   
-//         if(city.value == null){
-
-//         let errorFirstName = document.querySelector("#cityErrorMsg")
-//         errorFirstName.innerHTML = (`Veuillez ajouter votre ville s'il vous plait`)
-// }
-//         if(email.value == null){
-
-//         let errorFirstName = document.querySelector("#emailErrorMsg")
-//         errorFirstName.innerHTML = (`Veuillez ajouter votre email s'il vous plait`)
-// }
-//         else {
-//             let submitData = {
-//                 nom : firstName.value,
-//                 prenom : lastName.value,
-//                 adresse : adress.value,
-//                 ville : city.value,
-//                 mail : email.value,
-//             };
-//             const options = {
-//                 method: 'POST',
-//                 body: JSON.stringify(submitData),
-//                 headers: {
-//                     'Accept' : 'application/json',
-//                     "Content-Type" : "application/json"
-//                 },
-//             };
-//         const envoyer = fetch ("http://localhost:3000/api/products/order", options)
-//                 .then(res =>{
-//                     if(res.ok){
-//                         return res.json;
-//                         console.log(res)
-//                     }
-//                     else{
-//                     console.log("erreur")
-//                 .then((data) => {
-//                     localStorage.setItem("orderId", data.orderId)
-//                 }
-//                 )
-//             }
-//                 })
-// }
-// }
-//     )}  
-
