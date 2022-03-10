@@ -7,7 +7,7 @@ const product = fetch('http://localhost:3000/api/products')
     .then (data => {
         const articles = data;
         
-        // Création
+        // Création d'une boucle pour 
         for (i = 0; i < articles.length;i++) {
 
         // Insertion des produits dans la page d'accueil 
@@ -50,15 +50,3 @@ addDomIndex();
 
 
 
-
-
-
-
-
-// const product = fetch('http://localhost:3000/api/products')
-//     .then (res => res.json())
-//     .then (data => console.log(data))
-
-// const productImage = product.then(product => img.src = product[0].imageUrl)
-
-// console.log(productImage)
