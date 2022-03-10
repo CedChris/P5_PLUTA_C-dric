@@ -148,77 +148,109 @@ function modificationQuantite() {
 modificationQuantite();
 
 
-function formulaire(){
+let formFirstName = document.querySelector("#firstName");
+let formLastName = document.querySelector("#lastName");
+let formAddress = document.querySelector("#address");
+let formCity = document.querySelector("#city");
+let formEmail = document.querySelector("#email");
+let form = document.querySelector(".cart__order__form")
 
-    let firstName = document.querySelector("#firstName");
-    let lastName = document.querySelector("#lastName");
-    let address = document.querySelector("#address");
-    let city = document.querySelector("#city");
-    let email = document.querySelector("#email");
+    form.firstName.addEventListener('change', function(){
+        validationFirstName(this)
+    });
+    const validationFirstName = function(formFirstName){
+        let nameRegExp = new RegExp ("^[A-zÀ-ú' -]*$");
+        let testFirstName = nameRegExp.test(formFirstName.value)
+        console.log(testFirstName)
     
-    let charRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
-    let addressRegExp = new RegExp("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");
-    let emailRegExp = new RegExp('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$');
+    if(testFirstName){
+        let firstNameErrorMsg = document.querySelector("#firstNameErrorMsg")
+        firstNameErrorMsg.innerHTML = ""
+    }
+    else{
+        let firstNameErrorMsg = document.querySelector("#firstNameErrorMsg")
+        firstNameErrorMsg.innerHTML = "Veuillez remplir correctement votre prénom"
+    }
+}
+    form.lastName.addEventListener('change', function(){
+    validationLastName(this)
+    });
+    const validationLastName = function(formLastName){
+        let nameRegExp = new RegExp ("^[A-zÀ-ú' -]*$");
+        let testLastName = nameRegExp.test(formLastName.value)
+        console.log(testLastName)
 
-    console.log(firstName)
-    const firstNameExp = firstName.addEventListener('change',()=>{
-                if (charRegExp.test(firstName.value)) {
-                firstNameErrorMsg.innerHTML = '';
-                } else {
-                firstNameErrorMsg.innerHTML = 'Veuillez renseigner correctement votre prénom(s).';
-                return false
-                }
-                console.log(firstNameExp)
-        })
-    const lastNameExp = lastName.addEventListener('change',()=>{
-                if (charRegExp.test(lastName.value)) {
-                lastNameErrorMsg.innerHTML = '';
-                return true
-                } else {
-                lastNameErrorMsg.innerHTML = 'Veuillez renseigner correctement votre nom.';
-                return false
-                }
-        })
-    const addressExp =  address.addEventListener('change',()=>{
-                if (addressRegExp.test(address.value)) {
-                addressErrorMsg.innerHTML = '';
-                return true
-                } else {
-                addressErrorMsg.innerHTML = 'Veuillez renseigner correctement votre adresse.';
-                return false
-                }
-        })
-    const cityExp =  city.addEventListener('change',()=>{
-                if (charRegExp.test(city.value)) {
-                cityErrorMsg.innerHTML = '';
-                return true
-                } else {
-                cityErrorMsg.innerHTML = 'Veuillez renseigner correctement votre ville.';
-                return false
-                }
-        })
-    const emailExp = email.addEventListener('change',()=>{
-                if (emailRegExp.test(email.value)) {
-                emailErrorMsg.innerHTML = '';
-                return true
-                } else {
-                emailErrorMsg.innerHTML = 'Veuillez renseigner correctement votre email.';
-                return false
-                }
-        })
-};
-formulaire();
+    if(testLastName){
+        let lastNameErrorMsg = document.querySelector("#lastNameErrorMsg")
+        firstNameErrorMsg.innerHTML = ""
+}
+    else{
+        let lastNameErrorMsg = document.querySelector("#lastNameErrorMsg")
+        lastNameErrorMsg.innerHTML = "Veuillez remplir correctement votre nom"
+    }
+}
+form.address.addEventListener('change', function(){
+    validationAddress(this)
+    });
+    const validationAddress = (formAddress) =>{
+        let addressRegExp = new RegExp("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");
+        let testAddress = addressRegExp.test(formAddress.value)
+        console.log(testAddress)
+
+    if(testAddress){
+        let addressErrorMsg = document.querySelector("#addressErrorMsg")
+        addressErrorMsg.innerHTML = ""
+}
+    else{
+        let addressErrorMsg = document.querySelector("#addressErrorMsg")
+        addressErrorMsg.innerHTML = "Veuillez remplir correctement votre adresse"
+    }
+}
+form.city.addEventListener('change', function(){
+    validationCity(this)
+    });
+    const validationCity = (formCity) =>{
+        let nameRegExp = new RegExp ("^[A-zÀ-ú' -]*$");
+        let testCity = nameRegExp.test(formCity.value)
+        console.log(testCity)
+
+    if(testCity){
+        let lastNameErrorMsg = document.querySelector("#cityErrorMsg")
+        firstNameErrorMsg.innerHTML = ""
+}
+    else{
+        let cityErrorMsg = document.querySelector("#cityErrorMsg")
+        cityErrorMsg.innerHTML = "Veuillez remplir correctement votre ville"
+    }
+}
+    form.email.addEventListener('change', function () {
+        validationEmail(this)
+    });
+    const validationEmail = (formEmail) =>{
+        let emailRegExp = new RegExp('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$');
+        let testEmail = emailRegExp.test(formEmail.value)
+        console.log(testEmail)
+
+    if(testEmail){
+        let emailErrorMsg = document.querySelector("#emailErrorMsg")
+        emailErrorMsg.innerHTML = ""
+}
+    else{
+        emailErrorMsg.innerHTML = "Veuillez remplir correctement votre e-mail"
+    }
+}
 
 
-function envoiFormulaire(){
-    const btn_commander = document.getElementById("order");
+
+
+const btn_commander = document.getElementById("order");
 
     
     btn_commander.addEventListener("click", (event)=>{
         
         // Supprimer l'événement par défaut du bouton d'envoi
     
-               
+        event.preventDefault();   
 
         // Récupération des données du formulaire
 
@@ -231,7 +263,7 @@ function envoiFormulaire(){
         // Ajout de l'identifiant produit depuis le localstorage dans un tableau
 
         let idProduits = [];
-        for(let k = 0; k < dataLocalStorage.length; k++){
+        for(let i = 0; i < dataLocalStorage.length; i++){
             idProduits.push(dataLocalStorage[0]._id);
         }
 
@@ -258,7 +290,7 @@ function envoiFormulaire(){
                 "Content-Type": "application/json" 
             },
         };
-    event.preventDefault();
+    
         //  Appelle a l'API pour l'envoie des données avec 
         if( !inputFirstName.value || !inputLastName.value || !inputAdress.value || !inputCity.value || !inputMail.value){
             alert("Veuillez remplir le formulaire s'il vous plait")
@@ -276,5 +308,3 @@ function envoiFormulaire(){
         }
         
     })
-}
-envoiFormulaire();
