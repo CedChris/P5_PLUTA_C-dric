@@ -84,6 +84,7 @@ if (resultat) {
   resultat.quantity = totalQtt;
   localStorage.setItem("produit", JSON.stringify(produitLocal));
   window.confirm('votre commande a bien été ajouter au panier, cliquez sur OK pour accéder au panier.')
+  window.location.href = 'cart.html';
 }
 
 // Sinon, ajoute le produit sélectionné au localstorage.

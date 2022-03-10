@@ -78,7 +78,7 @@ addDomCart ();
 
 // Fonction de suppression d'un article
 
-function deleteCart (){
+function supProduit (){
 
     let deleteItem = document.querySelectorAll(".deleteItem")
     for (let d = 0; d < deleteItem.length; d++){
@@ -95,7 +95,7 @@ function deleteCart (){
     });
     
 }};
-deleteCart ();
+supProduit ();
 
 // Calcul du prix total en fonction de(s) quantité(s)
 function Totaux(){
@@ -124,20 +124,20 @@ function Totaux(){
 Totaux();
 
 // 
-function modifQuantity() {
+function modificationQuantite() {
     let modifQuantity = document.querySelectorAll(".itemQuantity");
 
-    for (let k = 0; k < modifQuantity.length; k++){
-        modifQuantity[k].addEventListener("change" , (event) => {
+    for (let i = 0; i < modifQuantity.length; i++){
+        modifQuantity[i].addEventListener("change" , (event) => {
             event.preventDefault();
 
-            let quantityModif = dataLocalStorage[k].quantity;
-            let modifQuantityValue = modifQuantity[k].valueAsNumber;
+            let quantityModif = dataLocalStorage[i].quantity;
+            let modifQuantityValue = modifQuantity[i].valueAsNumber;
             
             const result = dataLocalStorage.find((el) => el.qttModifValue !== quantityModif);
 
             result.quantity = modifQuantityValue;
-            dataLocalStorage[k].quantity = result.quantity;         
+            dataLocalStorage[i].quantity = result.quantity;         
             localStorage.setItem("produit", JSON.stringify(dataLocalStorage));
     
             location.reload();
@@ -145,7 +145,7 @@ function modifQuantity() {
         })
     }
 }
-modifQuantity();
+modificationQuantite();
 
 
 function formulaire(){
@@ -155,19 +155,20 @@ function formulaire(){
     let address = document.querySelector("#address");
     let city = document.querySelector("#city");
     let email = document.querySelector("#email");
-    console.log(firstName)
+    
     let charRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
     let addressRegExp = new RegExp("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");
     let emailRegExp = new RegExp('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$');
 
+    console.log(firstName)
     const firstNameExp = firstName.addEventListener('change',()=>{
                 if (charRegExp.test(firstName.value)) {
                 firstNameErrorMsg.innerHTML = '';
-                return true
                 } else {
                 firstNameErrorMsg.innerHTML = 'Veuillez renseigner correctement votre prénom(s).';
                 return false
                 }
+                console.log(firstNameExp)
         })
     const lastNameExp = lastName.addEventListener('change',()=>{
                 if (charRegExp.test(lastName.value)) {
