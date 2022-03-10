@@ -9,7 +9,7 @@ function addDomCart() {
 // Boucle pour avoir la totalité des éléments du tableau stocké dans le localStorage
 for (i = 0; i < dataLocalStorage.length; i++){
     
-    // Ajout dans le DOM des éléments stockés dans le localStorage
+// Ajout dans le DOM des éléments stockés dans le localStorage
     let containerCart = document.createElement("article"); 
     containerCart.classList.add("cart__item");
     containerPanier.appendChild(containerCart);
@@ -148,58 +148,68 @@ function modifQuantity() {
 modifQuantity();
 
 
-function form(){
+function formulaire(){
 
     let firstName = document.querySelector("#firstName");
     let lastName = document.querySelector("#lastName");
     let address = document.querySelector("#address");
     let city = document.querySelector("#city");
     let email = document.querySelector("#email");
-
+    console.log(firstName)
     let charRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
     let addressRegExp = new RegExp("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");
     let emailRegExp = new RegExp('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$');
 
-        firstName.addEventListener('change',()=>{
+    const firstNameExp = firstName.addEventListener('change',()=>{
                 if (charRegExp.test(firstName.value)) {
                 firstNameErrorMsg.innerHTML = '';
+                return true
                 } else {
                 firstNameErrorMsg.innerHTML = 'Veuillez renseigner correctement votre prénom(s).';
+                return false
                 }
         })
-        lastName.addEventListener('change',()=>{
+    const lastNameExp = lastName.addEventListener('change',()=>{
                 if (charRegExp.test(lastName.value)) {
                 lastNameErrorMsg.innerHTML = '';
+                return true
                 } else {
                 lastNameErrorMsg.innerHTML = 'Veuillez renseigner correctement votre nom.';
+                return false
                 }
         })
-        address.addEventListener('change',()=>{
+    const addressExp =  address.addEventListener('change',()=>{
                 if (addressRegExp.test(address.value)) {
                 addressErrorMsg.innerHTML = '';
+                return true
                 } else {
                 addressErrorMsg.innerHTML = 'Veuillez renseigner correctement votre adresse.';
+                return false
                 }
         })
-        city.addEventListener('change',()=>{
+    const cityExp =  city.addEventListener('change',()=>{
                 if (charRegExp.test(city.value)) {
                 cityErrorMsg.innerHTML = '';
+                return true
                 } else {
                 cityErrorMsg.innerHTML = 'Veuillez renseigner correctement votre ville.';
+                return false
                 }
         })
-        email.addEventListener('change',()=>{
+    const emailExp = email.addEventListener('change',()=>{
                 if (emailRegExp.test(email.value)) {
                 emailErrorMsg.innerHTML = '';
+                return true
                 } else {
                 emailErrorMsg.innerHTML = 'Veuillez renseigner correctement votre email.';
+                return false
                 }
         })
 };
-form();
+formulaire();
 
 
-function postForm(){
+function envoiFormulaire(){
     const btn_commander = document.getElementById("order");
 
     
@@ -248,7 +258,7 @@ function postForm(){
             },
         };
     event.preventDefault();
-        //  Appelle a l'API pour l'envoie des données
+        //  Appelle a l'API pour l'envoie des données avec 
         if( !inputFirstName.value || !inputLastName.value || !inputAdress.value || !inputCity.value || !inputMail.value){
             alert("Veuillez remplir le formulaire s'il vous plait")
         }
@@ -266,4 +276,4 @@ function postForm(){
         
     })
 }
-postForm();
+envoiFormulaire();
