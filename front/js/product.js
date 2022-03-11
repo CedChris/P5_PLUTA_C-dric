@@ -83,8 +83,7 @@ if (resultat) {
   let totalQtt = parseInt(resultat.quantity) + parseInt(produitPanier.quantity);
   resultat.quantity = totalQtt;
   localStorage.setItem("produit", JSON.stringify(produitLocal));
-  window.confirm('votre commande a bien été ajouter au panier, cliquez sur OK pour accéder au panier.')
-  window.location.href = 'cart.html';
+  alert('votre produit a été ajouter au panier.')
 }
 
 // Sinon, ajoute le produit sélectionné au localstorage.
@@ -93,8 +92,7 @@ else {
 
   produitLocal.push(produitPanier);
   localStorage.setItem("produit", JSON.stringify(produitLocal));
-  window.confirm('votre commande a bien été ajouter au panier, cliquez sur OK pour accéder au panier.')
-  window.location.href = 'cart.html';
+  alert('votre produit a été ajouter au panier.')
 }
 }
 
@@ -105,11 +103,11 @@ else {
   produitLocal =[];
   produitLocal.push(produitPanier);
   localStorage.setItem("produit", JSON.stringify(produitLocal));
-  window.confirm('votre commande a bien été ajouter au panier, cliquez sur OK pour accéder au panier.')
-  window.location.href = 'cart.html';
+  alert('votre produit a été ajouter au panier.')
 }
+};
 }
-}); 
+); 
 }
 );
 

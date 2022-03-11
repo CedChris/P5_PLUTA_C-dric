@@ -1,7 +1,6 @@
 // Récupération du contenu du local storage
 let dataLocalStorage = JSON.parse(localStorage.getItem("produit"));
 let containerPanier = document.querySelector("#cart__items")
-console.log(dataLocalStorage)
 
 // Ajout dans le DOM de(s) produit(s) stocké(s) dans le localstorage
 function addDomCart() {
@@ -147,6 +146,7 @@ function modificationQuantite() {
 }
 modificationQuantite();
 
+// Initialisation des variables pour le formulaire
 
 let formFirstName = document.querySelector("#firstName");
 let formLastName = document.querySelector("#lastName");
@@ -155,156 +155,201 @@ let formCity = document.querySelector("#city");
 let formEmail = document.querySelector("#email");
 let form = document.querySelector(".cart__order__form")
 
+// Ajout d'évenement au changement de valeur de l'input correspondant
+
     form.firstName.addEventListener('change', function(){
         validationFirstName(this)
     });
+
+// Vérification des entrées dans l'input correspondant avec des expressions régulière
+
     const validationFirstName = function(formFirstName){
         let nameRegExp = new RegExp ("^[A-zÀ-ú' -]*$");
         let testFirstName = nameRegExp.test(formFirstName.value)
-        console.log(testFirstName)
-    
+
+// Renvoi true si la condition est remplie, sinon renvoie false
+
     if(testFirstName){
         let firstNameErrorMsg = document.querySelector("#firstNameErrorMsg")
         firstNameErrorMsg.innerHTML = ""
+        return true
     }
     else{
         let firstNameErrorMsg = document.querySelector("#firstNameErrorMsg")
         firstNameErrorMsg.innerHTML = "Veuillez remplir correctement votre prénom"
+        return false
     }
 }
+// Ajout d'évenement au changement de valeur de l'input correspondant
+
     form.lastName.addEventListener('change', function(){
     validationLastName(this)
     });
+
+// Vérification des entrées dans l'input correspondant avec des expressions régulière
+
     const validationLastName = function(formLastName){
         let nameRegExp = new RegExp ("^[A-zÀ-ú' -]*$");
-        let testLastName = nameRegExp.test(formLastName.value)
-        console.log(testLastName)
+        let testLastName = nameRegExp.test(formLastName.value);
+
+// Renvoi true si la condition est remplie, sinon renvoie false
 
     if(testLastName){
         let lastNameErrorMsg = document.querySelector("#lastNameErrorMsg")
         firstNameErrorMsg.innerHTML = ""
+        return true
 }
     else{
         let lastNameErrorMsg = document.querySelector("#lastNameErrorMsg")
         lastNameErrorMsg.innerHTML = "Veuillez remplir correctement votre nom"
+        return false
     }
 }
+
+// Ajout d'évenement au changement de valeur de l'input correspondant
+
 form.address.addEventListener('change', function(){
     validationAddress(this)
     });
+
+// Vérification des entrées dans l'input correspondant avec des expressions régulière
+
     const validationAddress = (formAddress) =>{
         let addressRegExp = new RegExp("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");
         let testAddress = addressRegExp.test(formAddress.value)
-        console.log(testAddress)
+
+// Renvoi true si la condition est remplie, sinon renvoie false
 
     if(testAddress){
         let addressErrorMsg = document.querySelector("#addressErrorMsg")
         addressErrorMsg.innerHTML = ""
+        return true
 }
     else{
         let addressErrorMsg = document.querySelector("#addressErrorMsg")
         addressErrorMsg.innerHTML = "Veuillez remplir correctement votre adresse"
+        return false
     }
 }
+
+// Ajout d'évenement au changement de valeur de l'input correspondant
+
 form.city.addEventListener('change', function(){
     validationCity(this)
     });
+
+// Vérification des entrées dans l'input correspondant avec des expressions régulière
+
     const validationCity = (formCity) =>{
         let nameRegExp = new RegExp ("^[A-zÀ-ú' -]*$");
-        let testCity = nameRegExp.test(formCity.value)
-        console.log(testCity)
+        let testCity = nameRegExp.test(formCity.value);
+
+// Renvoi true si la condition est remplie, sinon renvoie false
 
     if(testCity){
-        let lastNameErrorMsg = document.querySelector("#cityErrorMsg")
-        firstNameErrorMsg.innerHTML = ""
+        let lastNameErrorMsg = document.querySelector("#cityErrorMsg");
+        cityErrorMsg.innerHTML = "";
+        return true;
 }
     else{
-        let cityErrorMsg = document.querySelector("#cityErrorMsg")
-        cityErrorMsg.innerHTML = "Veuillez remplir correctement votre ville"
+        let cityErrorMsg = document.querySelector("#cityErrorMsg");
+        cityErrorMsg.innerHTML = "Veuillez remplir correctement votre ville";
+        return false;
     }
-}
-    form.email.addEventListener('change', function () {
+};
+
+// Ajout d'évenement au changement de valeur de l'input correspondant
+
+form.email.addEventListener('change', function () {
         validationEmail(this)
     });
+
+// Vérification des entrées dans l'input correspondant avec des expressions régulière
+
     const validationEmail = (formEmail) =>{
         let emailRegExp = new RegExp('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$');
-        let testEmail = emailRegExp.test(formEmail.value)
-        console.log(testEmail)
+        let testEmail = emailRegExp.test(formEmail.value);
+
+// Renvoi true si la condition est remplie, sinon renvoie false
 
     if(testEmail){
-        let emailErrorMsg = document.querySelector("#emailErrorMsg")
-        emailErrorMsg.innerHTML = ""
+        let emailErrorMsg = document.querySelector("#emailErrorMsg");
+        emailErrorMsg.innerHTML = "";
+        return true;
 }
     else{
-        emailErrorMsg.innerHTML = "Veuillez remplir correctement votre e-mail"
+        
+        emailErrorMsg.innerHTML = "Veuillez remplir correctement votre e-mail";
+        return false;
     }
-}
-
-
-
+};
 
 const btn_commander = document.getElementById("order");
 
     
-    btn_commander.addEventListener("click", (event)=>{
+btn_commander.addEventListener("click", (event)=>{
         
-        // Supprimer l'événement par défaut du bouton d'envoi
+// Supprimer l'événement par défaut du bouton d'envoi
     
-        event.preventDefault();   
+event.preventDefault();   
 
-        // Récupération des données du formulaire
+// Récupération des données du formulaire
 
-        let inputFirstName = document.querySelector('#firstName');
-        let inputLastName = document.querySelector('#lastName');
-        let inputAdress = document.querySelector('#address');
-        let inputCity = document.querySelector('#city');
-        let inputMail = document.querySelector('#email');
+let inputFirstName = document.querySelector('#firstName');
+let inputLastName = document.querySelector('#lastName');
+let inputAdress = document.querySelector('#address');
+let inputCity = document.querySelector('#city');
+let inputMail = document.querySelector('#email');
 
-        // Ajout de l'identifiant produit depuis le localstorage dans un tableau
+// Ajout de l'identifiant produit depuis le localstorage dans un tableau
 
-        let idProduits = [];
-        for(let i = 0; i < dataLocalStorage.length; i++){
-            idProduits.push(dataLocalStorage[0]._id);
-        }
+let idProduits = [];
+for(let i = 0; i < dataLocalStorage.length; i++){
+    idProduits.push(dataLocalStorage[0]._id);
+}
 
-        // Initialiser une variable contenant les informations client
+// Initialiser une variable contenant les informations client
 
-        const commande = {
-            contact : {
-                firstName: inputFirstName.value,
-                lastName: inputLastName.value,
-                address: inputAdress.value,
-                city: inputCity.value,
-                email: inputMail.value,
-            },
-            products: idProduits,
-        } 
+const commande = {
+    contact : {
+    firstName: inputFirstName.value,
+    lastName: inputLastName.value,
+    address: inputAdress.value,
+    city: inputCity.value,
+    email: inputMail.value,
+    },
+    products: idProduits,
+};
 
-        // Initialiser une variable contenant la méthode "POST"
+// Initialiser une variable contenant la méthode "POST"
 
-        const postFormulaire = {
-            method: 'POST',
-            body: JSON.stringify(commande),
-            headers: {
-                'Accept': 'application/json', 
-                "Content-Type": "application/json" 
-            },
-        };
+const postFormulaire = {
+    method: 'POST',
+    body: JSON.stringify(commande),
+    headers: {
+        'Accept': 'application/json', 
+        "Content-Type": "application/json" 
+    },
+};
     
-        //  Appelle a l'API pour l'envoie des données avec 
-        if( !inputFirstName.value || !inputLastName.value || !inputAdress.value || !inputCity.value || !inputMail.value){
-            alert("Veuillez remplir le formulaire s'il vous plait")
-        }
-        else{
-            fetch("http://localhost:3000/api/products/order", postFormulaire)
-            .then((response) => response.json())
-            .then((data) => {
-            let produit = data
-            localStorage.clear();
-            localStorage.setItem("orderId", produit.orderId);
+//  Appelle a l'API pour l'envoie des données avec des conditions sur le remplissage du formulaire
 
-            document.location.href = "confirmation.html";
-            })
-        }
+if(validationFirstName(formFirstName) && validationLastName(formLastName) && validationAddress(formAddress) && validationCity(formCity) && validationEmail(formEmail)){
+
+    fetch("http://localhost:3000/api/products/order", postFormulaire)
+    .then((response) => response.json())
+    .then((data) => {
+        let produit = data
         
-    })
+        localStorage.clear();
+        localStorage.setItem("orderId", produit.orderId);
+
+        document.location.href = "confirmation.html";
+    });
+}
+else{
+    alert("Veuillez remplir correctement le formulaire s'il vous plait")
+};
+        
+}
+);
