@@ -20,8 +20,7 @@ const product = fetch('http://localhost:3000/api/products')
         lienProduit.href = `product.html?id=${articles[i]._id}`;
         
         // Insertion d'un article dans le conteneur lien
-        let productArticle = 
-        document.createElement("article");
+        let productArticle = document.createElement("article");
         lienProduit.appendChild(productArticle);
         
         // Insertion d'une image dans le conteneur lien
@@ -41,7 +40,8 @@ const product = fetch('http://localhost:3000/api/products')
         productArticle.appendChild(productDescription);
         productDescription.classList.add("productName");
         productDescription.innerHTML = articles[i].description;
-    }});
+    }
+});
 }
 // Appelle de la fonction
 addDomIndex();
