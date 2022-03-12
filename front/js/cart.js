@@ -84,8 +84,9 @@ function supProduit (){
         deleteItem[d].addEventListener('click' ,(event) =>{
         event.preventDefault();
         let idDeleteItem = dataLocalStorage[d]._id;
+        let colorItem = dataLocalStorage[d].colors;
 
-        dataLocalStorage = dataLocalStorage.filter( (element) => element._id !== idDeleteItem)
+        dataLocalStorage = dataLocalStorage.filter( (element) => element._id !== idDeleteItem || element.colors !== colorItem)
         localStorage.setItem("produit", JSON.stringify(dataLocalStorage))
         location.reload();
 
@@ -131,9 +132,10 @@ function modificationQuantite() {
             event.preventDefault();
 
             let quantityModif = dataLocalStorage[i].quantity;
+            let colorModif = dataLocalStorage[i].colors;
             let modifQuantityValue = modifQuantity[i].valueAsNumber;
             
-            const result = dataLocalStorage.find((el) => el.qttModifValue !== quantityModif);
+            const result = dataLocalStorage.find((el) => el.qttModifValue !== quantityModif || el.colors !== colorModif);
 
             result.quantity = modifQuantityValue;
             dataLocalStorage[i].quantity = result.quantity;         
