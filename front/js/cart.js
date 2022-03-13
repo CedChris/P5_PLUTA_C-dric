@@ -3,7 +3,7 @@ let dataLocalStorage = JSON.parse(localStorage.getItem("produit"));
 let containerPanier = document.querySelector("#cart__items")
 
 // Ajout dans le DOM de(s) produit(s) stocké(s) dans le localstorage
-function addDomCart() {
+
     
 // Boucle pour avoir la totalité des éléments du tableau stocké dans le localStorage
 for (i = 0; i < dataLocalStorage.length; i++){
@@ -72,12 +72,9 @@ for (i = 0; i < dataLocalStorage.length; i++){
     cartItemContentSettingsDelete.appendChild(cartItemContentSettingsDeleteBtn);
         
     cartItemContentSettingsDeleteBtn.innerHTML = "Supprimer"
-}}
-addDomCart ();
+};
 
 // Fonction de suppression d'un article
-
-function supProduit (){
 
     let deleteItem = document.querySelectorAll(".deleteItem")
     for (let d = 0; d < deleteItem.length; d++){
@@ -94,11 +91,10 @@ function supProduit (){
              
     });
     
-}};
-supProduit ();
+};
+
 
 // Calcul du prix total en fonction de(s) quantité(s)
-function Totaux(){
 
     // Récupération du total des quantités
     let domQuantity = document.getElementsByClassName('itemQuantity');
@@ -120,33 +116,30 @@ function Totaux(){
 
     let productTotalPrice = document.getElementById('totalPrice');
     productTotalPrice.innerHTML = totalPrice;
-}
-Totaux();
 
-// 
-function modificationQuantite() {
-    let modifQuantity = document.querySelectorAll(".itemQuantity");
+// Modification de la quantité
 
-    for (let i = 0; i < modifQuantity.length; i++){
-        modifQuantity[i].addEventListener("change" , (event) => {
-            event.preventDefault();
+let modifQuantity = document.querySelectorAll(".itemQuantity");
 
-            let quantityModif = dataLocalStorage[i].quantity;
-            let colorModif = dataLocalStorage[i].colors;
-            let modifQuantityValue = modifQuantity[i].valueAsNumber;
+for (let i = 0; i < modifQuantity.length; i++){
+    modifQuantity[i].addEventListener("change" , (event) => {
+        event.preventDefault();
+
+        let quantityModif = dataLocalStorage[i].quantity;
+        let colorModif = dataLocalStorage[i].colors;
+        let modifQuantityValue = modifQuantity[i].valueAsNumber;
             
-            const result = dataLocalStorage.find((el) => el.qttModifValue !== quantityModif || el.colors !== colorModif);
+        const result = dataLocalStorage.find((el) => el.modifQuantityValue !== quantityModif || el.colors !== colorModif);
 
-            result.quantity = modifQuantityValue;
-            dataLocalStorage[i].quantity = result.quantity;         
-            localStorage.setItem("produit", JSON.stringify(dataLocalStorage));
+        result.quantity = modifQuantityValue;
+        dataLocalStorage[i].quantity = result.quantity;         
+        localStorage.setItem("produit", JSON.stringify(dataLocalStorage));
     
-            location.reload();
+        location.reload();
             
-        })
-    }
+    });
 }
-modificationQuantite();
+
 
 // Initialisation des variables pour le formulaire
 
@@ -166,7 +159,7 @@ let form = document.querySelector(".cart__order__form")
 // Vérification des entrées dans l'input correspondant avec des expressions régulière
 
     const validationFirstName = function(formFirstName){
-        let nameRegExp = new RegExp ("^[A-zÀ-ú' -]*$");
+        let nameRegExp = new RegExp ("^[a-zA-Zàâäéèêëïîôöùûüç ,.'-]+$");
         let testFirstName = nameRegExp.test(formFirstName.value)
 
 // Renvoi true si la condition est remplie, sinon renvoie false
@@ -191,7 +184,7 @@ let form = document.querySelector(".cart__order__form")
 // Vérification des entrées dans l'input correspondant avec des expressions régulière
 
     const validationLastName = function(formLastName){
-        let nameRegExp = new RegExp ("^[A-zÀ-ú' -]*$");
+        let nameRegExp = new RegExp ("^[a-zA-Z ,.'-]+$");
         let testLastName = nameRegExp.test(formLastName.value);
 
 // Renvoi true si la condition est remplie, sinon renvoie false
@@ -243,7 +236,7 @@ form.city.addEventListener('change', function(){
 // Vérification des entrées dans l'input correspondant avec des expressions régulière
 
     const validationCity = (formCity) =>{
-        let nameRegExp = new RegExp ("^[A-zÀ-ú' -]*$");
+        let nameRegExp = new RegExp ("^[a-zA-Z ,.'-]+$");
         let testCity = nameRegExp.test(formCity.value);
 
 // Renvoi true si la condition est remplie, sinon renvoie false
