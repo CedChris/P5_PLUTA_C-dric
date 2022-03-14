@@ -48,7 +48,6 @@ const productColor = document.querySelector("#colors")
 
   // Ajout d'un événement au clic sur le bouton "Ajouter"
 btnPanier.addEventListener("click" , () => {
-    
     // Création d'une instruction avec des conditions sur la quantité et les couleurs
 if (quantityPanier.value > 0 && quantityPanier.value < 100 && productColor.value && productColor != null){
     
@@ -85,9 +84,7 @@ if (resultat) {
   localStorage.setItem("produit", JSON.stringify(produitLocal));
   alert('votre produit a été ajouter au panier.')
 }
-
 // Sinon, ajoute le produit sélectionné au localstorage.
-
 else {
 
   produitLocal.push(produitPanier);
@@ -106,9 +103,7 @@ else {
   alert('votre produit a été ajouter au panier.')
 }
 };
-}
-); 
-}
-);
+}); 
+});
 
 

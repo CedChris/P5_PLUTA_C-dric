@@ -1,12 +1,12 @@
 // Ajout d'éléments dynamique dans le DOM
 
 //  Appel vers l'API avec fetch
-function addDomIndex (){
 const product = fetch('http://localhost:3000/api/products')
     .then (res => res.json())
     .then (data => {
         const articles = data;
         
+        if(articles){
         // Création d'une boucle pour 
         for (i = 0; i < articles.length;i++) {
 
@@ -41,10 +41,12 @@ const product = fetch('http://localhost:3000/api/products')
         productDescription.classList.add("productName");
         productDescription.innerHTML = articles[i].description;
     }
-});
 }
+else{
+    alert('problème fetch')
+}
+});
 // Appelle de la fonction
-addDomIndex();
 
 
 
